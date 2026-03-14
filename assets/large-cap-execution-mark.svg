@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" role="img" aria-label="Large-Cap Execution">
+  <defs>
+    <linearGradient id="lcg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#17d1b3"/>
+      <stop offset="1" stop-color="#27a8ff"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="278" height="78" rx="18" fill="#081f2f" stroke="#1f4d66"/>
+  <rect x="28" y="20" width="16" height="40" rx="4" fill="url(#lcg)"/>
+  <rect x="52" y="28" width="16" height="32" rx="4" fill="url(#lcg)" opacity="0.85"/>
+  <rect x="76" y="36" width="16" height="24" rx="4" fill="url(#lcg)" opacity="0.7"/>
+  <path d="M96 54h34" stroke="#9bd3ee" stroke-width="3" stroke-linecap="round"/>
+  <text x="138" y="40" fill="#ebf8ff" font-size="20" font-family="'Space Grotesk', sans-serif" font-weight="700">Large-Cap</text>
+  <text x="138" y="58" fill="#9bd3ee" font-size="14" font-family="'IBM Plex Mono', monospace">Execution Hook</text>
+</svg>

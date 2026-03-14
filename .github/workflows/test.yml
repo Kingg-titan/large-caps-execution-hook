@@ -1,17 +1,30 @@
-name: Test Suite
+name: CI
 
 on:
   workflow_dispatch:
-  # push:
-  # pull_request:
-
-env:
-  FOUNDRY_PROFILE: ci
+  push:
+    branches: [main]
+  pull_request:
 
 jobs:
-  test:
-    name: Foundry Project
+  deps:
+    name: Verify Dependencies
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Bootstrap pinned dependencies
+        run: ./scripts/bootstrap.sh
+
+      - name: Ensure lockfile exists
+        run: test -f package-lock.json
+
+  foundry:
+    name: Foundry Build/Test/Coverage
+    runs-on: ubuntu-latest
+    needs: deps
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,13 +35,14 @@ jobs:
         with:
           version: stable
 
+      - name: Format check
+        run: forge fmt --check
+
       - name: Build
-        run: |
-          forge --version
-          forge build --sizes
-        id: build
+        run: forge build --sizes
 
       - name: Test
-        run: |
-          forge test -vvv
-        id: test
+        run: forge test -vv
+
+      - name: Coverage
+        run: forge coverage --report summary
