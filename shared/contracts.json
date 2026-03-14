@@ -1,0 +1,5 @@
+{
+  "OrderBookVault": "shared/abis/OrderBookVault.json",
+  "LargeCapExecutionHook": "shared/abis/LargeCapExecutionHook.json",
+  "Executor": "shared/abis/Executor.json"
+}
