@@ -1,0 +1,17 @@
+{
+  "name": "large-caps-execution-hook",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "bootstrap": "./scripts/bootstrap.sh",
+    "build": "forge build && npm --workspace frontend run build",
+    "test": "forge test -vv",
+    "coverage": "forge coverage --report summary",
+    "frontend:dev": "npm --workspace frontend run dev",
+    "frontend:build": "npm --workspace frontend run build",
+    "export:shared": "./scripts/export-shared.sh"
+  }
+}
