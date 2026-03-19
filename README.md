@@ -77,7 +77,7 @@ flowchart TD
   POSM --> POOL
 
   SCH -->|Callback event| CBP
-  CBP -->|callback(address,bytes32)| CBC
+  CBP -->|callback address bytes32| CBC
   CBC -->|executeNextSlice| EXE
 ```
 
@@ -90,8 +90,8 @@ flowchart LR
   D1 -- No --> R1[Revert: OrderBookVault__InvalidSchedule/InvalidAmount]
   D1 -- Yes --> C2[Executor.executeNextSlice]
   C2 --> D2{Eligible slice reserved?}
-  D2 -- No --> B1[Emit SliceSkipped + SliceExecutionResult(false)]
-  D2 -- Yes --> C3[PoolManager.unlock -> swap]
+  D2 -- No --> B1[Emit SliceSkipped and SliceExecutionResult false]
+  D2 -- Yes --> C3[PoolManager unlock then swap]
   C3 --> D3{Hook validation passes?}
   D3 -- No --> R2[Revert: LargeCapExecutionHook__SliceBlocked]
   D3 -- Yes --> C4[OrderBookVault.recordAfterSwap]
