@@ -3,6 +3,11 @@
 ## Test Classes
 
 - Unit and edge tests: `test/OrderBookVault.t.sol`
+- Branch-complete unit tests: `test/OrderBookVault.branch.t.sol`
+- Hook unit tests: `test/LargeCapExecutionHook.unit.t.sol`
+- Executor unit tests: `test/Executor.unit.t.sol`
+- Settlement library tests: `test/PoolManagerSettlement.t.sol`
+- Counter hook unit tests: `test/Counter.unit.t.sol`
 - Integration lifecycle: `test/LargeCapExecutionHook.integration.t.sol`
 - Stateless fuzz: `test/fuzz/OrderBookVaultFuzz.t.sol`
 - Stateful invariants: `test/invariant/OrderBookVaultInvariant.t.sol`
@@ -11,7 +16,7 @@
 
 ```bash
 forge test -vv
-forge coverage --report summary
+forge coverage --report summary --exclude-tests --no-match-coverage "script/|test/"
 ```
 
 ## Covered Edge Cases

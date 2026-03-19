@@ -10,3 +10,6 @@
 [submodule "context/unichain-docs"]
 	path = context/unichain-docs
 	url = https://github.com/Uniswap/docs.git
+[submodule "lib/reactive-lib"]
+	path = lib/reactive-lib
+	url = https://github.com/Reactive-Network/reactive-lib

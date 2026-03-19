@@ -16,7 +16,7 @@ test:
 	forge test -vv
 
 coverage:
-	forge coverage --report summary
+	forge coverage --report summary --exclude-tests --no-match-coverage "script/|test/"
 
 export-shared:
 	./scripts/export-shared.sh
@@ -24,10 +24,11 @@ export-shared:
 demo-local:
 	forge script script/10_DemoCompareLocal.s.sol:DemoCompareLocalScript --rpc-url $${ANVIL_RPC_URL:-http://127.0.0.1:8545} --broadcast -vvv
 
-demo-compare: demo-local
+demo-compare:
+	./scripts/demo_workflow.sh
 
 demo-testnet:
-	forge script script/00_DeployLargeCapSystem.s.sol:DeployLargeCapSystemScript --rpc-url "$${TESTNET_RPC_URL}" --broadcast --verify -vvv
+	./scripts/demo_workflow.sh
 
 verify-deps:
 	./scripts/bootstrap.sh

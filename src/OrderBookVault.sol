@@ -144,7 +144,7 @@ contract OrderBookVault is IOrderBookVault, Ownable2Step, ReentrancyGuard {
         _notifyOrderCancelled(orderId, msg.sender);
     }
 
-    function claimOutput(bytes32 orderId, uint128 amount, address recipient)
+    function claimOutput(bytes32 orderId, uint128 requestedAmount, address recipient)
         external
         nonReentrant
         returns (uint128 claimed)
@@ -162,17 +162,16 @@ contract OrderBookVault is IOrderBookVault, Ownable2Step, ReentrancyGuard {
         }
 
         uint128 available = order.amountOutTotal - order.amountOutClaimed;
-        if (amount == 0) {
-            amount = available;
+        if (requestedAmount == 0) {
+            requestedAmount = available;
         }
-        if (amount == 0 || amount > available) {
+        if (requestedAmount == 0 || requestedAmount > available) {
             revert OrderBookVault__InsufficientClaimableOutput();
         }
 
-        order.amountOutClaimed += amount;
-        IERC20(order.tokenOut).safeTransfer(recipient, amount);
-
-        claimed = amount;
+        claimed = requestedAmount;
+        order.amountOutClaimed += claimed;
+        IERC20(order.tokenOut).safeTransfer(recipient, claimed);
     }
 
     function withdrawRemainingInput(bytes32 orderId, address recipient) external nonReentrant returns (uint128 amount) {
@@ -315,11 +314,7 @@ contract OrderBookVault is IOrderBookVault, Ownable2Step, ReentrancyGuard {
         if (pending.sliceIndex != sliceIndex || pending.amountIn != amountIn) {
             return ReasonCode.INVALID_CALLER;
         }
-        if (pending.observedImpactBps > order.maxImpactBps) {
-            return ReasonCode.IMPACT_TOO_HIGH;
-        }
-
-        return ReasonCode.NONE;
+        return pending.observedImpactBps <= order.maxImpactBps ? ReasonCode.NONE : ReasonCode.IMPACT_TOO_HIGH;
     }
 
     function recordAfterSwap(bytes32 orderId, uint64 sliceIndex, uint128 amountIn, uint128 amountOut)
